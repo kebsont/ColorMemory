@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:colormemory/home.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // Changer l'orientation
-    SystemChrome.setPreferredOrientations([
-      // DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+   
 
     return MaterialApp(
       title: 'Color Memory',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Color Memory'),
+      // home: MyHomePage(title: 'Color Memory'),
+      home: Home(),
     );
   }
 }
@@ -34,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int niveau = 1;
-  int vie = 2;
+  int vie = 9;
   int _counter = 0;
   double h_button = 0;
   double w_button = 0;
@@ -45,11 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
   double h_widget = 0;
   double w_widget = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  // @override
+  // void dispose() {
+  //    // Changer l'orientation
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.landscapeRight,
+  //   ]);
+  // }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
     h_margin2 = 0.145 * h_widget ;
     w_margin1 = 0.15 * w_widget;
     w_margin2 = 0.15 * w_widget * 2.5;
-    // print('${MediaQuery.of(context).size.height - appBar.preferredSize.height} ');
-    // print('${MediaQuery.of(context).size.width} ');
+
+    // TRACES
+    List <Key> buttonsList;
+
+
     return Scaffold(
         appBar: appBar,
         body: Column(
