@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "267467196814",
+    "firebase_url": "https://colormemory-b74f5.firebaseio.com",
+    "project_id": "colormemory-b74f5",
+    "storage_bucket": "colormemory-b74f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267467196814:android:080b22bbe095dac1287cdf",
+        "android_client_info": {
+          "package_name": "com.example.colormemory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267467196814-6torspjgf4csgobrrssticq1o3hl60m5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuj4exO5Fw6KJ40R1kXz0pYUAWJT5iOQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267467196814-6torspjgf4csgobrrssticq1o3hl60m5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

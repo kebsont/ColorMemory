@@ -1,10 +1,14 @@
+import 'package:colormemory/login_signup_page.dart';
+import 'package:colormemory/services/authentication.dart';
+import 'package:colormemory/widgets/registration.dart';
+import 'package:colormemory/widgets/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:colormemory/home.dart';
+import 'package:colormemory/widgets/home.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  BaseAuth auth;
   @override
   Widget build(BuildContext context) {
    
@@ -15,7 +19,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: MyHomePage(title: 'Color Memory'),
-      home: Home(),
+      // home: Home(),
+      // home: SignUpScreen(this.auth),
+      debugShowCheckedModeBanner: false,
+        routes: {
+        '/': (context) => SignInScreen(),
+        '/registration': (context) => SignUpScreen(this.auth),
+        '/home' : (context) => Home()
+        // '/forgot-password': (context) => ForgotPasswordScreen(),
+      },
+
     );
   }
 }
