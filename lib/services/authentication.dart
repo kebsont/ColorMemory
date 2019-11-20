@@ -72,6 +72,7 @@ class Auth implements BaseAuth {
           score: 0,
           rang: 0,
         ));
+        print("USers settings added successfully");
       } else {
         print("user ${user.pseudo} ${user.email} exists");
       }

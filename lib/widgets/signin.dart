@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/services.dart';
@@ -154,31 +155,16 @@ class _SignInScreenState extends State<SignInScreen> {
   void _emailLogin(
       {String email, String password, BuildContext context}) async {
     if (_formKey.currentState.validate()) {
-      try {
-        SystemChannels.textInput.invokeMethod('TextInput.hide');
-        await _changeLoadingVisible();
-        //need await so it has chance to go through error if found.
-        await StateWidget.of(context).logInUser(email, password);
-        await Navigator.pushNamed(context, '/home');
-      } catch (e) {
-        _changeLoadingVisible();
-        print("Sign In Error: $e");
-        String exception;
-        bool _isIos = false;
-        //  setState(() {
-        //   _isLoading = false;
-        //   if (_isIos) {
-        //     exception = e.details;
-        //   } else
-        //     exception = e;
-        // });
-        // Flushbar(
-        //   title: "Erreur de connexion",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
-      }
-    } else {
+      FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password
+      ).then((Null) {
+        });
+                await Navigator.pushNamed(context, '/home');
+
+}
+      
+       else {
       setState(() => _autoValidate = true);
     }
   }

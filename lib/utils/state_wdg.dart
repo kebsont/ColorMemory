@@ -65,12 +65,28 @@ class _StateWidgetState extends State<StateWidget> {
   }
 
   Future<void> logInUser(email, password) async {
+    print("Dans logInUser()");
     String userId = await Auth.signIn(email, password);
+    print("userID is: $userId");
     User user = await Auth.getUserFirebase(userId);
     await Auth.storeUserLocal(user);
     Settings settings = await Auth.getSettingsFirebase(userId);
     await Auth.storeSettingsLocal(settings);
     await initUser();
+    print("bien sorti");
+  }
+
+  Future<FirebaseUser> loginUserWithEP({String email, String password}) async {
+    try {
+      var result = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      // since something changed, let's notify the listeners...
+      // notifyListeners();
+      return result;
+    }  catch (e) {
+      // throw the Firebase AuthException that we caught
+      throw new AuthException(e.code, e.message);
+    }
   }
 
   @override

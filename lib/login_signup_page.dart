@@ -379,12 +379,13 @@ final firstName = TextFormField(
         await _changeLoadingVisible();
         //need await so it has chance to go through error if found.
         await Auth.signUp(email, password).then((uID) {
-          Auth.addUserSettingsDB(new User(
+          Auth.addUserSettingsRtDB(new User(
             userId: uID,
             email: email,
             pseudo: pseudo,
           ));
         });
+        print("Users id added successfully");
         //now automatically login user too
         await StateWidget.of(context).logInUser(email, password);
         await Navigator.pushNamed(context, '/signin');
@@ -415,7 +416,7 @@ final firstName = TextFormField(
         // await Navigator.pushNamed(context, '/');
       } catch (e) {
         _changeLoadingVisible();
-        print("Sign In Error: $e");
+        print("Sign In Error1: $e");
         String exception = Auth.getExceptionText(e);
         Flushbar(
           title: "Erreur de connexion",
