@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:colormemory/main.dart';
@@ -26,6 +27,16 @@ class Home extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(64, 75, 96, .9),
             title: Text("Color Memory"),
+            actions: <Widget>[
+              new IconButton(
+                icon: new Icon(Icons.exit_to_app),
+                onPressed: (){
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
+                },
+              
+              )
+            ],
           ),
           body: Column(
             children: <Widget>[

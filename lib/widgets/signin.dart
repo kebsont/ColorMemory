@@ -155,16 +155,11 @@ class _SignInScreenState extends State<SignInScreen> {
   void _emailLogin(
       {String email, String password, BuildContext context}) async {
     if (_formKey.currentState.validate()) {
-      FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
-      ).then((Null) {
-        });
-                await Navigator.pushNamed(context, '/home');
-
-}
-      
-       else {
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((Null) {});
+      await Navigator.pushNamed(context, '/home');
+    } else {
       setState(() => _autoValidate = true);
     }
   }
