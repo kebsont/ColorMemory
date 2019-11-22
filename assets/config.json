@@ -1,0 +1,46 @@
+{
+    "app_name": "Color Memory",
+    "version": 1.0,
+    "level": {
+        "value": [1,7],
+        "blocs": [4,10]
+    },
+    "mode": [
+        {
+            "weight": 1,
+            "time": false,
+            "life": 2,
+            "blocToLight": [
+                1,
+                8
+            ]
+        },
+        {
+            "weight": 1.5,
+            "time": false,
+            "life": 2,
+            "blocToLight": [
+                3,
+                12
+            ]
+        },
+        {
+            "weight": 2,
+            "time": false,
+            "life": 3,
+            "blocToLight": [
+                5,
+                15
+            ]
+        },
+        {
+            "weight": 1.5,
+            "time": true,
+            "life": 3,
+            "blocToLight": [
+                1,
+                10
+            ]
+        }
+    ]
+}
