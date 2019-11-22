@@ -43,6 +43,7 @@ class _StateWidgetState extends State<StateWidget> {
   }
 
   Future<Null> initUser() async {
+    print("FONCTION BIEN APPELE");
     FirebaseUser firebaseUserAuth = await Auth.getCurrentFirebaseUser();
     User user = await Auth.getUserLocal();
     Settings settings = await Auth.getSettingsLocal();

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         routes: {
         '/': (context) => SignInScreen(),
         '/registration': (context) => SignUpScreen(this.auth),
-        '/home' : (context) => Home()
+        '/home' : (context) => HomeWithMenu()
         // '/forgot-password': (context) => ForgotPasswordScreen(),
       },
 
