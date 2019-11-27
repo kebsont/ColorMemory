@@ -26,6 +26,8 @@ dependencies:
   shared_preferences: any
   firebase_database: any
   flushbar: any
+  random_color: ^1.0.3
+
 
 dev_dependencies:
   flutter_test:

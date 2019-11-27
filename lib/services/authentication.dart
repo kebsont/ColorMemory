@@ -31,6 +31,33 @@ class Auth implements BaseAuth {
     return user.uid;
   }
 
+   static Future<String> logInUser(email, password) async {
+     String userId;
+     try {
+       print("Dans logInUser()");
+    userId = await Auth.signIn(email, password);
+    print("userID is: $userId");
+    User user = await Auth.getUserFirebase(userId);
+    await Auth.storeUserLocal(user);
+    Settings settings = await Auth.getSettingsFirebase(userId);
+    await Auth.storeSettingsLocal(settings);
+    // await initUser();
+    print("bien sorti");
+    return user.userId;
+     } catch (e) {
+       String exception = Auth.getExceptionText(e);
+       print("The Exception: $exception");
+      //  return e;
+     }finally{
+       if (userId != null) {
+         print("bien sorti");
+       }else{
+         print("Identifiants incorrects");
+       }
+     }
+    
+  }
+
   static Future<String> signUp(String email, String password) async {
     FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
@@ -53,10 +80,10 @@ class Auth implements BaseAuth {
     user.sendEmailVerification();
   }
 
-   static bool isEmailVerified()  {
-    FirebaseUser user =  Auth.getCurrentUser() as FirebaseUser;
-    FirebaseUser user3 =  _firebaseAuth.currentUser() as FirebaseUser;
-    FirebaseUser user2 =  Auth.getCurrentFirebaseUser() as FirebaseUser;
+  static bool isEmailVerified() {
+    FirebaseUser user = Auth.getCurrentUser() as FirebaseUser;
+    FirebaseUser user3 = _firebaseAuth.currentUser() as FirebaseUser;
+    FirebaseUser user2 = Auth.getCurrentFirebaseUser() as FirebaseUser;
     return user3.isEmailVerified;
   }
 
@@ -78,6 +105,7 @@ class Auth implements BaseAuth {
       }
     });
   }
+
   static void addUserSettingsRtDB(User user) async {
     checkUserExist(user.userId).then((value) {
       if (!value) {
@@ -86,16 +114,13 @@ class Auth implements BaseAuth {
             .reference()
             .child("users/${user.userId}")
             .set({
-              "email": user.email,
-              "pseudo": user.pseudo,
-              "userId": user.userId
-            });
+          "email": user.email,
+          "pseudo": user.pseudo,
+          "userId": user.userId
+        });
 
-        _addSettingstoRtDB(new Settings(
-          settingsId: user.userId,
-          score: 1,
-          rang: 0
-        ));
+        _addSettingstoRtDB(
+            new Settings(settingsId: user.userId, score: 1, rang: 0));
       } else {
         print("user ${user.pseudo} ${user.email} exists");
       }
@@ -107,18 +132,16 @@ class Auth implements BaseAuth {
         .document("settings/${settings.settingsId}")
         .setData(settings.toJson());
   }
+
   static void _addSettingstoRtDB(Settings settings) async {
     FirebaseDatabase.instance
-            .reference()
-            .child("settings/${settings.settingsId}")
-            .set(
-              {
-                "score": settings.score,
-                "rang": settings.rang,
-                "settingsId": settings.settingsId
-              }
-            );
-    
+        .reference()
+        .child("settings/${settings.settingsId}")
+        .set({
+      "score": settings.score,
+      "rang": settings.rang,
+      "settingsId": settings.settingsId
+    });
   }
 
   static Future<bool> checkUserExist(String userId) async {
@@ -150,23 +173,38 @@ class Auth implements BaseAuth {
     }
   }
 
-   static Future<User> getUserFirebase(String userId) async {
+  static Future<User> getUserFirebase(String userId) async {
     if (userId != null) {
       print("getting User Firebase");
       return FirebaseDatabase.instance
-      .reference()
+          .reference()
           .child('users')
           .child(userId)
           .once()
-          .then((DataSnapshot snapshot) => User.fromJson(snapshot.value)
-            );
-          
-          
+          .then((DataSnapshot snapshot) => User.fromJson(snapshot.value));
+
     } else {
       print('firebase Database userId can not be null');
       return null;
     }
   }
+
+  static Future<User> getPseudoFirebase(String userId) async {
+    if (userId != null) {
+      print("getting User Firebase");
+      return FirebaseDatabase.instance
+          .reference()
+          .child('users')
+          .child(userId)
+          .child('pseudo')
+          .once()
+          .then((DataSnapshot snapshot) => User.fromJson(snapshot.value));
+    } else {
+      print('firebase Database userId can not be null');
+      return null;
+    }
+  }
+
 
   static Future<Settings> getSettingsFirestore(String settingsId) async {
     if (settingsId != null) {
@@ -181,16 +219,15 @@ class Auth implements BaseAuth {
     }
   }
 
-   static Future<Settings> getSettingsFirebase(String settingsId) async {
+  static Future<Settings> getSettingsFirebase(String settingsId) async {
     if (settingsId != null) {
       print("getting Settings Firebase");
       return FirebaseDatabase.instance
-      .reference()
+          .reference()
           .child('settings')
           .child(settingsId)
           .once()
-          .then((DataSnapshot snapshot) => Settings.fromJson(snapshot.value)
-             );
+          .then((DataSnapshot snapshot) => Settings.fromJson(snapshot.value));
     } else {
       print('no firebase settings available');
       return null;
@@ -198,7 +235,7 @@ class Auth implements BaseAuth {
   }
 
   static Future<String> storeUserLocal(User user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();   
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     String storeUser = userToJson(user);
     await prefs.setString('user', storeUser);
     print("all user data stored locally");
@@ -227,6 +264,19 @@ class Auth implements BaseAuth {
       return null;
     }
   }
+  static Future<String> getPseudo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('user') != null) {
+      User user = userFromJson(prefs.getString('user'));
+      return user.pseudo;
+    } else {
+      return null;
+    }
+  }
+  static Future<User> getUserLocally() async {
+    User user = await getUserLocal();
+    return  user;
+  }
 
   static Future<Settings> getSettingsLocal() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -245,7 +295,7 @@ class Auth implements BaseAuth {
   static String getExceptionText(Exception e) {
     String error_msg;
     if (e is PlatformException) {
-      bool _isIOS;
+      bool _isIOS = false;
       if (_isIOS) {
         error_msg = e.details;
       } else

@@ -7,33 +7,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:colormemory/main.dart';
 import 'package:colormemory/utils/constants.dart' as Constants;
+import 'package:colormemory/models/user.dart';
 
 class HomeWithMenu extends StatefulWidget {
   final StateModel state;
 
   const HomeWithMenu({Key key, this.state}) : super(key: key);
 
-   State<StatefulWidget>  createState() => _HomeWithMenuState();
+  State<StatefulWidget> createState() => _HomeWithMenuState();
 }
 
 class _HomeWithMenuState extends State<HomeWithMenu> {
   var mode = {
     "Débutant": Constants.MODE_FACILE,
     "Avancé": Constants.MODE_DIFFICILE,
-    "Vétéran": Constants.MODE_EXPERT,
-    "Temps": Constants.MODE_CHRONO
+    "Expert": Constants.MODE_EXPERT,
+    "Chrono": Constants.MODE_CHRONO
   };
-    StateModel appState;
-    Settings testSettings;
-    Settings settingss;
-
-    
-
+  StateModel appState;
+  Settings testSettings;
+  Settings settingss;
+  String user_pseudo;
+  // User user = Auth.getUserLocally();
 
   @override
   void initState() {
     super.initState();
-    
+    getLocalUserPseudo();
+
+    setState(() {
+      // myConnectedUser
+    });
   }
 
   //  Future <Settings> getSeetings() async {
@@ -82,10 +86,12 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                 ),
               ),
               Center(
-                child: Text(
-                  "Bonjour  \n Veuillez choisir un niveau",
-                  style: TextStyle(fontSize: 18),
-                ),
+                child: _welcomeWidget(context),
+                // child: 
+                // Text(
+                //   "Bienvenue $user_pseudo,\nSelectionne un niveau :",
+                  // style: TextStyle(fontSize: 18),
+                // ),
               ),
               SizedBox(
                 height: 28.0,
@@ -131,6 +137,37 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
               SizedBox(height: 28.0),
             ],
           )),
+    );
+  }
+
+  getLocalUserPseudo() async {
+    user_pseudo = await Auth.getPseudo();
+    setState(() {
+      user_pseudo = user_pseudo;
+    });
+    return user_pseudo;
+  }
+
+  Widget _welcomeWidget(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        // set the default style for the children TextSpans
+        style: Theme.of(context).textTheme.body1.copyWith(fontSize: 18),
+        children: [
+          TextSpan(
+              text: 'Bienvenue ',
+          ),
+          TextSpan(
+            text: '$user_pseudo',
+            style: TextStyle(
+              color: Colors.grey
+            )
+          ),
+          TextSpan(
+              text: '\nSelectionne un niveau :',
+          ),
+        ]
+      )
     );
   }
 }

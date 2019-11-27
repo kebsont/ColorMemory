@@ -155,11 +155,30 @@ class _SignInScreenState extends State<SignInScreen> {
   void _emailLogin(
       {String email, String password, BuildContext context}) async {
     if (_formKey.currentState.validate()) {
-      FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((Null) {});
+      try {
+        Auth.logInUser(email, password).then((uid) async {
+        // Auth.signIn(email, password).then((uid) async {
+        print("SON UID EST ====>>>>>>>> : $uid");
+      User theUser = await Auth.getUserFirebase(uid);
+        Auth.storeUserLocal(theUser);
+        print("Il s'est bien connecte");
       await Navigator.pushNamed(context, '/home');
+      });
+      } catch (e) {
+        String exception = Auth.getExceptionText(e);
+        Flushbar(
+          title: "Erreur de connexion",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
+      }
+      
+      // FirebaseAuth.instance
+      //     .signInWithEmailAndPassword(email: email, password: password)
+      //     .then((Null) {});
+          // Auth.storeUserLocal(user);
     } else {
+      print("IDENTIFIAANTS INCORRECTS");
       setState(() => _autoValidate = true);
     }
   }

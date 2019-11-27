@@ -5,6 +5,7 @@ import 'package:colormemory/services/authentication.dart';
 import 'package:colormemory/widgets/registration.dart';
 import 'package:colormemory/widgets/signin.dart';
 import 'package:flutter/material.dart';
+import 'package:colormemory/color/colorsPossibilities.dart';
 import 'package:flutter/services.dart';
 import 'package:colormemory/widgets/home.dart';
 
@@ -37,6 +38,9 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
+  int niveau = 1;
+  int vie = 2;
+  int _counter = 0;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -47,17 +51,7 @@ class _MyHomePageState extends State<MyHomePage>
   AnimationController _animationController;
   Animation _colorTween;
 
-  int niveau = 1;
-  int vie = 9;
-  int _counter = 0;
-  double h_button = 0;
-  double w_button = 0;
-  double h_margin1 = 0;
-  double h_margin2 = 0;
-  double w_margin1 = 0;
-  double w_margin2 = 0;
-  double h_widget = 0;
-  double w_widget = 0;
+ 
 
   bool _visible = true;
   Timer _timer;
@@ -99,123 +93,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
-    _timer = new Timer(const Duration(seconds: 5), () {
-      // _animationController.reset();
-      // _animationController.forward();
-    print("Tab3");
-    });
-    AppBar appBar = AppBar(
-      title: Text(widget.title),
-    );
-    h_widget = MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    w_widget = MediaQuery.of(context).size.width;
-    h_button = 0.29 * h_widget;
-    w_button = 0.15 * w_widget;
-    h_margin1 = 0.0725 * h_widget;
-    h_margin2 = 0.145 * h_widget;
-    w_margin1 = 0.15 * w_widget;
-    w_margin2 = 0.15 * w_widget * 2.5;
 
-    // TRACES
-    List<Key> buttonsList;
-
-    return Scaffold(
-        appBar: appBar,
-        body: Column(
-          children: <Widget>[
-            // Ligne de Niveau et du nbre de vie
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: Text("Niveau: $niveau"),
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Text("Vie: $vie"),
-                )
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                AnimatedBuilder(
-                  animation: _colorTween,
-                  builder: (context, child) => new GestureDetector(
-                    onTap: () {
-                      if (_animationController.status ==
-                          AnimationStatus.completed) {
-                        _animationController.reverse();
-                      } else {
-                        _animationController.forward();
-                      }
-                    },
-                    child: Container(
-                      decoration: new BoxDecoration(
-                          color: _colorTween.value, shape: BoxShape.circle),
-                      margin: EdgeInsets.only(
-                          top: h_margin1,
-                          left: w_margin1,
-                          right: 0.0,
-                          bottom: 0),
-                      width: w_button,
-                      height: h_button,
-                      key: Key('1'),
-                    ),
-                  ),
-                ),
-                AnimatedOpacity(
-                    opacity: _visible ? 1.0 : 0.0,
-                    duration: Duration(milliseconds: 200),
-                    child: new GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _visible = !_visible;
-                        });
-                        print("Bouton cliqué");
-                      },
-                      child: Container(
-                        decoration: new BoxDecoration(
-                            color: Colors.greenAccent, shape: BoxShape.circle),
-                        margin: EdgeInsets.only(
-                            top: h_margin1,
-                            left: w_margin2,
-                            right: 0.0,
-                            bottom: 0),
-                        width: w_button,
-                        height: h_button,
-                        key: Key('2'),
-                      ),
-                    )),
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('3'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('4'),
-                ),
-              ],
-            )
-          ],
-        ));
-
-    // This trailing comma makes auto-formatting nicer for build methods.
+    ColorsPossibilities colorsPossibilities = new ColorsPossibilities(4);
+    return colorsPossibilities.colorX(context,4);
   }
+
 }
