@@ -7,37 +7,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:colormemory/main.dart';
 import 'package:colormemory/utils/constants.dart' as Constants;
-import 'package:colormemory/models/user.dart';
 
 class HomeWithMenu extends StatefulWidget {
   final StateModel state;
 
   const HomeWithMenu({Key key, this.state}) : super(key: key);
 
-  State<StatefulWidget> createState() => _HomeWithMenuState();
+   State<StatefulWidget>  createState() => _HomeWithMenuState();
 }
 
 class _HomeWithMenuState extends State<HomeWithMenu> {
   var mode = {
     "Débutant": Constants.MODE_FACILE,
     "Avancé": Constants.MODE_DIFFICILE,
-    "Expert": Constants.MODE_EXPERT,
-    "Chrono": Constants.MODE_CHRONO
+    "Vétéran": Constants.MODE_EXPERT,
+    "Temps": Constants.MODE_CHRONO
   };
-  StateModel appState;
-  Settings testSettings;
-  Settings settingss;
-  String user_pseudo;
-  // User user = Auth.getUserLocally();
+    StateModel appState;
+    Settings testSettings;
+    Settings settingss;
+
+    
+
 
   @override
   void initState() {
     super.initState();
-    getLocalUserPseudo();
-
-    setState(() {
-      // myConnectedUser
-    });
+    
   }
 
   //  Future <Settings> getSeetings() async {
@@ -58,14 +54,14 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
     ]);
 
     return MaterialApp(
-      title: 'Color Memory',
+      title: Constants.TITLE_TEXT,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: new Scaffold(
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-            title: Text("Color Memory"),
+            title: Text(Constants.TITLE_TEXT),
             actions: <Widget>[
               new IconButton(
                 icon: new Icon(Icons.power_settings_new),
@@ -86,12 +82,10 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                 ),
               ),
               Center(
-                child: _welcomeWidget(context),
-                // child: 
-                // Text(
-                //   "Bienvenue $user_pseudo,\nSelectionne un niveau :",
-                  // style: TextStyle(fontSize: 18),
-                // ),
+                child: Text(
+                  "Bonjour  \n Veuillez choisir un niveau",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
               SizedBox(
                 height: 28.0,
@@ -128,7 +122,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyHomePage(
-                                        title: "Color Memory",
+                                        title: Constants.TITLE_TEXT,
                                       )));
                         },
                       ));
@@ -139,6 +133,8 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
           )),
     );
   }
+<<<<<<< Updated upstream
+=======
 
   getLocalUserPseudo() async {
     user_pseudo = await Auth.getPseudo();
@@ -160,7 +156,8 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
           TextSpan(
             text: '$user_pseudo',
             style: TextStyle(
-              color: Colors.grey
+              color: Colors.grey,
+              fontWeight: FontWeight.bold
             )
           ),
           TextSpan(
@@ -170,4 +167,5 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
       )
     );
   }
+>>>>>>> Stashed changes
 }
