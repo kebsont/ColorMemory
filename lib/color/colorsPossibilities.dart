@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:colormemory/utils/constants.dart';
 class ColorsPossibilities {
   int _color_number = 0;
-
   ColorsPossibilities(int color) {
     _color_number = color;
   }
@@ -74,11 +73,11 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text("Niveau: \$niveau"),
+                  child: Text(LEVEL_TEXT+"\$niveau"),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text("Vie: \$vie"),
+                  child: Text(LIFE_TEXT+"\$vie"),
                 )
               ],
             ),
@@ -166,13 +165,12 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                      "Niveau: \$niveau"), //(je sais pas faire le constructeur)
+                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child:
-                      Text("Vie: \$vie"), //(je sais pas faire le constructeur)
+                      Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
                 )
               ],
             ),
@@ -281,13 +279,12 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                      "Niveau: \$niveau"), //(je sais pas faire le constructeur)
+                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child:
-                      Text("Vie: \$vie"), //(je sais pas faire le constructeur)
+                      Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
                 )
               ],
             ),
@@ -395,11 +392,11 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text("Niveau: \$niveau"), //(je sais pas faire le constructeur)
+                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text("Vie: \$vie"), //(je sais pas faire le constructeur)
+                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
                 )
               ],
             ),
@@ -544,11 +541,11 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text("Niveau: \$niveau"), //(je sais pas faire le constructeur)
+                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text("Vie: \$vie"), //(je sais pas faire le constructeur)
+                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
                 )
               ],
             ),
@@ -677,11 +674,11 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text("Niveau: \$niveau"), //(je sais pas faire le constructeur)
+                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text("Vie: \$vie"), //(je sais pas faire le constructeur)
+                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
                 )
               ],
             ),
@@ -831,11 +828,11 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text("Niveau: \$niveau"), //(je sais pas faire le constructeur)
+                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text("Vie: \$vie"), //(je sais pas faire le constructeur)
+                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
                 )
               ],
             ),
