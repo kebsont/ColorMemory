@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:colormemory/login_signup_page.dart';
 import 'package:colormemory/services/authentication.dart';
 import 'package:colormemory/widgets/registration.dart';
@@ -5,14 +7,13 @@ import 'package:colormemory/widgets/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:colormemory/widgets/home.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   BaseAuth auth;
   @override
   Widget build(BuildContext context) {
-   
-
     return MaterialApp(
       title: 'Color Memory',
       theme: ThemeData(
@@ -22,13 +23,12 @@ class MyApp extends StatelessWidget {
       // home: Home(),
       // home: SignUpScreen(this.auth),
       debugShowCheckedModeBanner: false,
-        routes: {
+      routes: {
         '/': (context) => SignInScreen(),
         '/registration': (context) => SignUpScreen(this.auth),
-        '/home' : (context) => HomeWithMenu()
+        '/home': (context) => HomeWithMenu()
         // '/forgot-password': (context) => ForgotPasswordScreen(),
       },
-
     );
   }
 }
@@ -42,7 +42,11 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation _colorTween;
+
   int niveau = 1;
   int vie = 9;
   int _counter = 0;
@@ -55,18 +59,51 @@ class _MyHomePageState extends State<MyHomePage> {
   double h_widget = 0;
   double w_widget = 0;
 
-  // @override
-  // void dispose() {
-  //    // Changer l'orientation
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.landscapeRight,
-  //   ]);
-  // }
+  bool _visible = true;
+  Timer _timer;
 
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _colorTween = ColorTween(begin: Colors.red[900], end: Colors.green)
+        .animate(_animationController);
 
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(MyHomePage oldWidget) {
+    // TODO: implement didUpdateWidget
+    print("Tab1");
+    print("Tab2");
+    AnimateButton();
+
+    super.didUpdateWidget(oldWidget);
+    AnimateButton();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // _animationController.dispose();
+  }
+
+  AnimateButton() {
+    print("Animation appelee");
+    _timer = new Timer(const Duration(milliseconds: 900), () {
+      _animationController.reset();
+      _animationController.forward();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    _timer = new Timer(const Duration(seconds: 5), () {
+      // _animationController.reset();
+      // _animationController.forward();
+    print("Tab3");
+    });
     AppBar appBar = AppBar(
       title: Text(widget.title),
     );
@@ -74,14 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
     w_widget = MediaQuery.of(context).size.width;
     h_button = 0.29 * h_widget;
     w_button = 0.15 * w_widget;
-    h_margin1 = 0.0725 * h_widget ;
-    h_margin2 = 0.145 * h_widget ;
+    h_margin1 = 0.0725 * h_widget;
+    h_margin2 = 0.145 * h_widget;
     w_margin1 = 0.15 * w_widget;
     w_margin2 = 0.15 * w_widget * 2.5;
 
     // TRACES
-    List <Key> buttonsList;
-
+    List<Key> buttonsList;
 
     return Scaffold(
         appBar: appBar,
@@ -104,32 +140,54 @@ class _MyHomePageState extends State<MyHomePage> {
 
             Row(
               children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
+                AnimatedBuilder(
+                  animation: _colorTween,
+                  builder: (context, child) => new GestureDetector(
+                    onTap: () {
+                      if (_animationController.status ==
+                          AnimationStatus.completed) {
+                        _animationController.reverse();
+                      } else {
+                        _animationController.forward();
+                      }
+                    },
+                    child: Container(
+                      decoration: new BoxDecoration(
+                          color: _colorTween.value, shape: BoxShape.circle),
+                      margin: EdgeInsets.only(
+                          top: h_margin1,
+                          left: w_margin1,
+                          right: 0.0,
+                          bottom: 0),
+                      width: w_button,
+                      height: h_button,
+                      key: Key('1'),
+                    ),
                   ),
                 ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin2, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                )
+                AnimatedOpacity(
+                    opacity: _visible ? 1.0 : 0.0,
+                    duration: Duration(milliseconds: 200),
+                    child: new GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _visible = !_visible;
+                        });
+                        print("Bouton cliqué");
+                      },
+                      child: Container(
+                        decoration: new BoxDecoration(
+                            color: Colors.greenAccent, shape: BoxShape.circle),
+                        margin: EdgeInsets.only(
+                            top: h_margin1,
+                            left: w_margin2,
+                            right: 0.0,
+                            bottom: 0),
+                        width: w_button,
+                        height: h_button,
+                        key: Key('2'),
+                      ),
+                    )),
               ],
             ),
 
