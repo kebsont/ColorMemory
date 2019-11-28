@@ -5,12 +5,18 @@ import 'package:colormemory/main.dart';
 
 
 class ColorsPossibilities {
-  int _color_number = 0;
-  ColorsPossibilities(int color) {
-    _color_number = color;
+  // int _color_number = 0;
+
+  AppBar appBar = new AppBar();
+  ColorsPossibilities() {
+    // _color_number = color;
   }
 
   Scaffold colorX(BuildContext context, int value) {
+     appBar = AppBar(
+       backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+      title: Text(TITLE_TEXT), //(je sais pas faire le constructeur)
+    );
     switch (value) {
       case 5:
         {
@@ -55,18 +61,6 @@ class ColorsPossibilities {
   }
 
   Scaffold color4(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.15 * w_widget;
-    double w_margin2 = 0.15 * w_widget;
     return new Scaffold(
         appBar: appBar,
         body: Column(
@@ -77,52 +71,26 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
 
-            Row(
-              children: <Widget>[
-                BoutonColor(key: UniqueKey()),
-                BoutonColor(
-                  key: UniqueKey(),
-                )
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                BoutonColor(key: UniqueKey()),
-                BoutonColor(key: UniqueKey())
-              ],
-            )
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()]),
+            Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)]),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()]),
+            Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)])
           ],
         ));
   }
 
   Scaffold color5(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.15 * w_widget;
-    double w_margin2 = 0.15 * w_widget;
-
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Color Memory"),
-        ),
+        appBar: appBar,
         body: Column(
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
@@ -131,53 +99,26 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
 
-            Row(
-              children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],
-            ),
-
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                ),
-                BoutonColor()
-              ],
-            )
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],)
           ],
         ));
   }
 
   Scaffold color6(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.15 * w_widget;
-    double w_margin2 = 0.15 * w_widget;
-
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Color Memory"),
-        ),
+        appBar: appBar,
         body: Column(
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
@@ -186,44 +127,26 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
 
-            Row(
-              children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],
-            ),
-
-            Row(
-              children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],
-            )
+            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
           ],
         ));
   }
 
   Scaffold color7(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.0355 * w_widget;
-    double w_margin2 = 0.0355 * w_widget;
-
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Color Memory"),
-        ),
+        appBar: appBar,
         body: Column(
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
@@ -232,74 +155,25 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
-
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                Container(
-                  //Invisible
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                ),
-                BoutonColor(),
-                Container(
-                  //Invisible2
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                ),
-                BoutonColor(),
-                Container(
-                  //Invisible3
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                )
-              ],
-            )
+            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),          
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
           ],
         ));
   }
 
   Scaffold color8(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.0725 * w_widget;
-    double w_margin2 = 0.0725 * w_widget;
-
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Color Memory"),
-        ),
+        appBar: appBar,
         body: Column(
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
@@ -308,54 +182,27 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
 
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            )
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
           ],
         ));
   }
 
   Scaffold color9(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.0355 * w_widget;
-    double w_margin2 = 0.0355 * w_widget;
 
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Color Memory"),
-        ),
+        appBar: appBar,
         body: Column(
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
@@ -364,62 +211,26 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
 
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                Container( //invisible
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('X1'),
-                ),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            )
+            Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
           ],
         ));
   }
 
   Scaffold color10(BuildContext context) {
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.0355 * w_widget;
-    double w_margin2 = 0.0355 * w_widget;
-
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Color Memory"),
-        ),
+        appBar: appBar,
         body: Column(
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
@@ -428,43 +239,87 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(getLevel_Text()),
+                  child:  _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Text(getLife_Text()),
+                  child:  _lifeWidget(context),
                 )
               ],
             ),
 
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            ),
-
-            Row(
-              children: <Widget>[
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor(),
-                BoutonColor()
-              ],
-            )
+            Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],)
           ],
         ));
   }
 
-  String getLevel_Text() {
-    return LEVEL_TEXT +MyHomePage().niveau.toString();
+  // String getLevel_Text() {
+  //   return LEVEL_TEXT +MyHomePage().niveau.toString();
+  // }
+
+  String getLife_Text(){
+    String life_text = "";
+    for (var i = 0; i < MyHomePage().vie; i++) {
+      life_text += "♥︎";
+    }
+    return life_text;
+
   }
 
-  String getLife_Text() {
-    return LIFE_TEXT +MyHomePage().vie.toString();
+  Widget _lifeWidget(BuildContext context) {
+      return RichText(
+        text: TextSpan(
+          // set the default style for the children TextSpans
+          style: Theme.of(context).textTheme.body1.copyWith(fontSize: 18),
+          children: [
+            TextSpan(
+              text: getLife_Text(),
+              style: TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold
+              )
+            )
+          ]
+        )
+      );
+    }
+  Widget _levelWidget(BuildContext context) {
+      return RichText(
+        text: TextSpan(
+          // set the default style for the children TextSpans
+          style: Theme.of(context).textTheme.body1.copyWith(fontSize: 18),
+          children: [
+            TextSpan(
+                text: LEVEL_TEXT,
+            ),
+            TextSpan(
+              text: MyHomePage().niveau.toString(),
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold
+              )
+            )
+          ]
+        )
+      );
+    }
+  Container emptyArea(BuildContext context){
+    double h_widget =
+        MediaQuery.of(context).size.height - appBar.preferredSize.height;
+    double w_widget = MediaQuery.of(context).size.width;
+    double h_button = 0.15 * h_widget;
+    double w_button = 0.20 * w_widget;
+    double h_margin2 = 0.07 * h_widget;
+    double w_margin1 = 0.10 * w_widget;
+    return Container( //invisible
+      margin: EdgeInsets.only(
+        top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
+      width: w_button,
+      height: h_button,
+      // key: Key('X'),
+    );
   }
 }

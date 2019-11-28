@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:colormemory/color/colorsPossibilities.dart';
 import 'package:flutter/services.dart';
 import 'package:colormemory/widgets/home.dart';
+import 'package:colormemory/utils/constants.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Color Memory',
+      title: TITLE_TEXT,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -94,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
 
-    ColorsPossibilities colorsPossibilities = new ColorsPossibilities(4);
-    return colorsPossibilities.colorX(context,4);
+    ColorsPossibilities colorsPossibilities = new ColorsPossibilities();
+    return colorsPossibilities.colorX(context,6);
   }
 
 }

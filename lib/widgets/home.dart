@@ -58,14 +58,14 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
     ]);
 
     return MaterialApp(
-      title: 'Color Memory',
+      title: Constants.TITLE_TEXT,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: new Scaffold(
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-            title: Text("Color Memory"),
+            title: Text(Constants.TITLE_TEXT),
             actions: <Widget>[
               new IconButton(
                 icon: new Icon(Icons.power_settings_new),
@@ -128,7 +128,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyHomePage(
-                                        title: "Color Memory",
+                                        title: Constants.TITLE_TEXT,
                                       )));
                         },
                       ));
