@@ -133,8 +133,6 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
           )),
     );
   }
-<<<<<<< Updated upstream
-=======
 
   getLocalUserPseudo() async {
     user_pseudo = await Auth.getPseudo();
@@ -167,5 +165,4 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
       )
     );
   }
->>>>>>> Stashed changes
 }

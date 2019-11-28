@@ -1,5 +1,8 @@
+import 'package:colormemory/widgets/boutons.dart';
 import 'package:flutter/material.dart';
 import 'package:colormemory/utils/constants.dart';
+import '../main.dart';
+
 class ColorsPossibilities {
   int _color_number = 0;
   AppBar appBar = new AppBar();
@@ -56,21 +59,6 @@ class ColorsPossibilities {
   }
 
   Scaffold color4(BuildContext context) {
-<<<<<<< Updated upstream
-        AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.15 * w_widget;
-    double w_margin2 = 0.15 * w_widget;
-=======
->>>>>>> Stashed changes
     return new Scaffold(
         appBar: appBar,
         body: Column(
@@ -81,80 +69,19 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"),
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Text(LIFE_TEXT+"\$vie"),
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
 
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin2, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                )
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
->>>>>>> Stashed changes
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('3'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('4'),
-                ),
-              ],
-=======
               children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],
             ),
             Row(
@@ -162,7 +89,6 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],
->>>>>>> Stashed changes
             )
           ],
         ));
@@ -180,102 +106,19 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child:
-                      Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
 
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.brown, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                )
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
->>>>>>> Stashed changes
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('3'),
-                ),
-                Container(
-                  // decoration: new BoxDecoration(
-                  //     color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('6'), //Vide car le 6 n'est pas mis en place
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('4'),
-                ),
-              ],
-=======
               children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],
             ),
             Row(
@@ -283,28 +126,12 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],
->>>>>>> Stashed changes
             )
           ],
         ));
   }
 
   Scaffold color6(BuildContext context) {
-<<<<<<< Updated upstream
-     AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget =
-        MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget;
-    double h_margin2 = 0.145 * h_widget;
-    double w_margin1 = 0.15 * w_widget;
-    double w_margin2 = 0.15 * w_widget;
-=======
->>>>>>> Stashed changes
 
     return new Scaffold(
         appBar: appBar,
@@ -316,101 +143,18 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child:
-                      Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.brown, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                )
-              ],
-=======
               children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],
->>>>>>> Stashed changes
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('3'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.indigo, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('6'), //Vide car le 6 n'est pas mis en place
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('4'),
-                ),
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
             ),
             Row(
@@ -418,37 +162,16 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],
->>>>>>> Stashed changes
             )
           ],
         ));
   }
 
   Scaffold color7(BuildContext context) {
-<<<<<<< Updated upstream
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget = MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget ;
-    double h_margin2 = 0.145 * h_widget ;
-    double w_margin1 = 0.0355 * w_widget;
-    double w_margin2 = 0.0355 * w_widget;
-
-    return new Scaffold(
-        appBar: new AppBar(
-        title: new Text("Color Memory"),
-      ),
-      body: Column(
-=======
 
     return new Scaffold(
         appBar: appBar,
         body: Column(
->>>>>>> Stashed changes
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
             Row(
@@ -456,138 +179,20 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
 
 
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.brown, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.indigo, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('3'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.orange, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('4'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                )
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
->>>>>>> Stashed changes
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('X1'), //Invisible1
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('6'),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('X2'), //Invisible2
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('7'),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('X3'), //Invisible3
-                )
-              ],
-=======
               children: <Widget>[BoutonColor(), BoutonColor(),BoutonColor()],
             ),
             Row(
@@ -595,36 +200,15 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],
->>>>>>> Stashed changes
             )
           ],
         ));
   }
 
   Scaffold color8(BuildContext context) {
-<<<<<<< Updated upstream
-      AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget = MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget ;
-    double h_margin2 = 0.145 * h_widget ;
-    double w_margin1 = 0.0725 * w_widget;
-    double w_margin2 = 0.0725 * w_widget;
-
-    return new Scaffold(
-        appBar: new AppBar(
-        title: new Text("Color Memory"),
-      ),
-      body: Column(
-=======
     return new Scaffold(
         appBar: appBar,
         body: Column(
->>>>>>> Stashed changes
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
             Row(
@@ -632,121 +216,15 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.brown, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.purple, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                )
-              ],
-=======
-              children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
->>>>>>> Stashed changes
-            ),
-            Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('3'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.indigo, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('6'), 
-                ),
-                                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.orange, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('8'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('4'),
-                ),
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
             ),
             Row(
@@ -754,37 +232,19 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
->>>>>>> Stashed changes
+            ),
+            Row(
+              children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
             )
           ],
         ));
   }
 
   Scaffold color9(BuildContext context) {
-<<<<<<< Updated upstream
-     AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget = MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget ;
-    double h_margin2 = 0.145 * h_widget ;
-    double w_margin1 = 0.0355 * w_widget;
-    double w_margin2 = 0.0355 * w_widget;
-
-    return new Scaffold(
-        appBar: new AppBar(
-        title: new Text("Color Memory"),
-      ),
-      body: Column(
-=======
 
     return new Scaffold(
         appBar: appBar,
         body: Column(
->>>>>>> Stashed changes
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
             Row(
@@ -792,143 +252,19 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
 
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.brown, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.black, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('3'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.purple, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('4'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                )
-              ],
-=======
               children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],
->>>>>>> Stashed changes
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('6'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.indigo, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('7'), 
-                ),
-                Container(
-                  // decoration: new BoxDecoration(
-                  //     color: Colors.orange, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('X1'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.orange, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('8'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('9'),
-                ),
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
             ),
             Row(
@@ -936,36 +272,15 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
->>>>>>> Stashed changes
             )
           ],
         ));
   }
 
   Scaffold color10(BuildContext context) {
-<<<<<<< Updated upstream
-    AppBar appBar = AppBar(
-      title: Text("widget.title"), //(je sais pas faire le constructeur)
-    );
-    double h_widget = MediaQuery.of(context).size.height - appBar.preferredSize.height;
-    double w_widget = MediaQuery.of(context).size.width;
-    double h_button = 0.29 * h_widget;
-    double w_button = 0.15 * w_widget;
-    double h_margin1 = 0.0725 * h_widget ;
-    double h_margin2 = 0.145 * h_widget ;
-    double w_margin1 = 0.0355 * w_widget;
-    double w_margin2 = 0.0355 * w_widget;
-
-    return new Scaffold(
-        appBar: new AppBar(
-        title: new Text("Color Memory"),
-      ),
-      body: Column(
-=======
     return new Scaffold(
         appBar: appBar,
         body: Column(
->>>>>>> Stashed changes
           children: <Widget>[
             // Ligne de Niveau et du nbre de vie
             Row(
@@ -973,143 +288,19 @@ class ColorsPossibilities {
               children: <Widget>[
                 Container(
                   alignment: Alignment.topLeft,
-<<<<<<< Updated upstream
-                  child: Text(LEVEL_TEXT+"\$niveau"), //(je sais pas faire le constructeur)
-                ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Text(LIFE_TEXT+"\$vie"), //(je sais pas faire le constructeur)
-=======
                   child: _levelWidget(context),
                 ),
                 Container(
                   alignment: Alignment.topRight,
                   child: _lifeWidget(context),
->>>>>>> Stashed changes
                 )
               ],
             ),
 
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('1'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.brown, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('2'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.black, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('3'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.purple, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('4'),
-                  ),
-                ),
-                new GestureDetector(
-                  onTap: () {
-                    print("Bouton cliqué");
-                  },
-                  child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                    margin: EdgeInsets.only(
-                        top: h_margin1, left: w_margin1, right: 0.0, bottom: 0),
-                    width: w_button,
-                    height: h_button,
-                    key: Key('5'),
-                  ),
-                )
-              ],
-=======
               children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],
->>>>>>> Stashed changes
             ),
             Row(
-<<<<<<< Updated upstream
-              children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.teal, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('6'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.indigo, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('7'), 
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.grey, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('8'), 
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.orange, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin1, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('9'),
-                ),
-                Container(
-                  decoration: new BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  margin: EdgeInsets.only(
-                      top: h_margin2, left: w_margin2, right: 0.0, bottom: 0),
-                  width: w_button,
-                  height: h_button,
-                  key: Key('10'),
-                ),
-              ],
-=======
               children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],
             ),
             Row(
@@ -1117,13 +308,10 @@ class ColorsPossibilities {
             ),
             Row(
               children: <Widget>[BoutonColor(),BoutonColor(), BoutonColor()],
->>>>>>> Stashed changes
             )
           ],
         ));
   }
-<<<<<<< Updated upstream
-=======
 
 String getLife_Text (){
   String life_text = "";
@@ -1189,5 +377,4 @@ String getLife_Text (){
       // key: Key('X'),
     );
   }
->>>>>>> Stashed changes
 }
