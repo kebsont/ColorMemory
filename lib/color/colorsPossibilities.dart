@@ -80,9 +80,9 @@ class ColorsPossibilities {
               ],
             ),
 
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()]),
-            Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)]),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()]),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()]),
+            // Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)]),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()]),
             Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)])
           ],
         ));
@@ -108,10 +108,10 @@ class ColorsPossibilities {
               ],
             ),
 
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],)
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[emptyArea(context), emptyArea(context), emptyArea(context)],)
           ],
         ));
   }
@@ -136,10 +136,10 @@ class ColorsPossibilities {
               ],
             ),
 
-            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            // Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
           ],
         ));
   }
@@ -163,10 +163,10 @@ class ColorsPossibilities {
                 )
               ],
             ),
-            Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),          
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
+            // Row(children: <Widget>[emptyArea(context), BoutonColor(), emptyArea(context)],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),          
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
           ],
         ));
   }
@@ -191,10 +191,10 @@ class ColorsPossibilities {
               ],
             ),
 
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
           ],
         ));
   }
@@ -220,10 +220,10 @@ class ColorsPossibilities {
               ],
             ),
 
-            Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
+            // Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],)
           ],
         ));
   }
@@ -248,10 +248,10 @@ class ColorsPossibilities {
               ],
             ),
 
-            Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
-            Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],)
+            // Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), emptyArea(context), BoutonColor()],),
+            // Row(children: <Widget>[BoutonColor(), BoutonColor(), BoutonColor()],)
           ],
         ));
   }
