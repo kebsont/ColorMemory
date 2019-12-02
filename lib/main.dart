@@ -44,8 +44,7 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-  int niveau = 0;
-  int vie = 5;
+  // int niveau = 0;
   int _counter = 0;
 
   @override
@@ -56,7 +55,11 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _colorTween;
+  int phase = 0;
+  int phase_max = 8; //facile
   int niveau = 0;
+  int vie = 2; //facile
+  bool lock_click = false;
   Widget _button;
   double _greenOpacity = 1.0;
   double _redOpacity = 1.0;
@@ -84,33 +87,59 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void initStartStopButton() {
-    if (niveau == 0) {
-      _button = StartStopButtonClass(
-          label: 'Commencer',
-          onTap: () {
-            setState(() {
-              _result = true;
-              niveau += 1;
-              _userSequence.clear();
-              _colorMemorySequence.add(Math.Random().nextInt(4) + 1);
-              playSequence(_colorMemorySequence);
-              initStartStopButton();
-            });
-          }).startStopButton();
-    } else if (niveau > 0) {
-      _button = StartStopButtonClass(
-          label: 'Arrêter',
-          onTap: () {
-            setState(() {
-              stopSequence();
-              _result = false;
-              niveau = 0;
-              _gameLabel = '';
-              _colorMemorySequence.clear();
-              _userSequence.clear();
-              initStartStopButton();
-            });
-          }).startStopButton();
+    if (vie>0){
+      if (phase == 0) {
+        _button = StartStopButtonClass(
+          
+            label: 'Commencer',
+            onTap: () {
+              setState(() {
+                _result = true;
+                _gameLabel = 'Partie en cours';
+                if (niveau==0)
+                  niveau += 1;
+                phase = 1;
+                _userSequence.clear();
+                _colorMemorySequence.add(Math.Random().nextInt(4) + 1);
+                playSequence(_colorMemorySequence);
+                initStartStopButton();
+              });
+            }).startStopButton();
+      } else if (phase > 0) {
+        _button = StartStopButtonClass(
+            label: 'Arrêter',
+            onTap: () {
+              setState(() {
+                stopSequence();
+                _result = false;
+                niveau = 0;
+                phase = 0;
+                _gameLabel = '';
+                _colorMemorySequence.clear();
+                _userSequence.clear();
+                initStartStopButton();
+              });
+            }).startStopButton();
+      }
+    }else{
+              _button = StartStopButtonClass(
+            label: 'Recommencer',
+            onTap: () {
+              setState(() {
+                stopSequence();
+                _result = false;
+                niveau = 1;
+                phase =1;
+                vie = 2;
+                _gameLabel = '';
+                _colorMemorySequence.clear();
+                _userSequence.clear();
+                _colorMemorySequence.add(Math.Random().nextInt(4) + 1);
+                playSequence(_colorMemorySequence);
+                initStartStopButton();
+                
+              });
+            }).startStopButton();
     }
   }
 
@@ -164,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void colormemoryPlay(int index, OpacityColor opacityColor) {
-    Future.delayed(Duration(milliseconds: index * 500), () {
+    Future.delayed(Duration(milliseconds: index * 700), () {
       changeCouleur(opacityColor);
     });
   }
@@ -185,37 +214,54 @@ class _MyHomePageState extends State<MyHomePage>
           colormemoryPlay(i, OpacityColor.blue);
           break;
       }
-    }
+    }    
+    Future.delayed(Duration(milliseconds: colorMemorySequence.length*700 ), () {
+      lock_click = false;
+      setState(() {
+        _gameLabel = "A vous de jouer !";
+      });
+    });
+
+    
   }
 
   void stopSequence() {}
   void sequenceSuivant() {
+    
     setState(() {
+      _gameLabel = "Bien joué !";
+      lock_click = true;
       _userSequence.clear();
       _result = true;
-      niveau++;
+      
+      if (phase>=phase_max){
+        niveau++;
+        phase =1;
+      }
+      else{
+        phase++;  
+      }
+      
+
       _colorMemorySequence.add(Math.Random().nextInt(4) + 1);
     });
 
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(milliseconds: 1500), () {
       playSequence(_colorMemorySequence);
     });
+    
   }
 
   void startSequence(List<int> sequence) {}
 
-  bool checkSeqeunce() {
-    int count = 0;
-    for (var sq in _colorMemorySequence) {
-      for (var i = count; i < _userSequence.length;) {
-        if (sq != _userSequence[i]) {
+  bool checkSequence() {
+    // int count = 0;
+
+    for( var i = 0 ; i < _userSequence.length; i++ ) { 
+    // for (var i = count; i < _userSequence.length;) {
+      // for (var sq in _colorMemorySequence) { 
+        if ((_colorMemorySequence.length<i) ||(_colorMemorySequence[i] != _userSequence[i]))
           return false;
-        } else {
-          count++;
-          break;
-        }
-      }
-      continue;
     }
     return true;
   }
@@ -223,35 +269,43 @@ class _MyHomePageState extends State<MyHomePage>
   void gameOver() {
     setState(() {
       _result = false;
-      niveau = 0;
-      _gameLabel = 'Perdu';
+      vie--;
+      phase=0;
+        
       _colorMemorySequence.clear();
       _userSequence.clear();
+      if (vie<=0){
+        niveau = 0;
+        _gameLabel = 'Vous avez perdu la partie';      
+      }
+      else
+        _gameLabel = 'Vous avez perdu une vie';      
       initStartStopButton();
     });
+    _lifeWidget(vie,context);
   }
 
-  Widget _lifeWidget(BuildContext context) {
+  Widget _lifeWidget(int vie,BuildContext context) {
     return RichText(
         text: TextSpan(
             // set the default style for the children TextSpans
             style: Theme.of(context).textTheme.body1.copyWith(fontSize: 18),
             children: [
           TextSpan(
-              text: getLife_Text(),
+              text: getLife_Text(vie),
               style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))
         ]));
   }
 
-  String getLife_Text() {
+  String getLife_Text(int vie) {
     String life_text = "";
-    for (var i = 0; i < MyHomePage().vie; i++) {
+    for (var i = 0; i < vie; i++) {
       life_text += "♥︎";
     }
     return life_text;
   }
 
-  Widget _levelWidget(int value, BuildContext context) {
+  Widget _levelWidget(int value, int value2,BuildContext context) {
     return RichText(
         text: TextSpan(
             // set the default style for the children TextSpans
@@ -261,7 +315,7 @@ class _MyHomePageState extends State<MyHomePage>
             text: LEVEL_TEXT,
           ),
           TextSpan(
-              text: value.toString(),
+              text: value.toString()+"."+value2.toString(),
               style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold))
         ]));
   }
@@ -276,40 +330,65 @@ class _MyHomePageState extends State<MyHomePage>
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-          title: Text('Color Memory'),
+          title: Text(TITLE_TEXT),
         ),
         body: Container(
           color: Colors.white,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Row(children: [
-                _result ? (niveau == 0 ? Text("Niveau") :
-                //  _levelWidget(niveau ,context)
-                 Container(
+                Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
                   alignment: Alignment.topLeft,
-                  child: _levelWidget(niveau, context),
-                )
-                 
-                 ): Container(
-                  alignment: Alignment.topLeft,
-                  child: _levelWidget(niveau, context),
+                  child:  _levelWidget(niveau,phase,context),
                 ),
-                
+                Container(
+                  alignment: Alignment.topCenter,
+                  child:  RichText(
+                    text: TextSpan(
+                        // set the default style for the children TextSpans
+                    style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12),
+                    children: [
+                      TextSpan(
+                        text: _gameLabel,
+                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))    
+                    ])),
+                ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: _lifeWidget(context),
+                  child:  _lifeWidget(vie,context),
                 )
-              ]
-                  ),
+              ],
+            ),
+            // Row(children: [
+              //   _result ? (niveau == 0 ? Text("Niveau") :
+              //   //  _levelWidget(niveau ,context)
+              //    Container(
+              //     alignment: Alignment.topLeft,
+              //     child: _levelWidget(niveau, context),
+              //   )
+                 
+              //    ): Container(
+              //     alignment: Alignment.topLeft,
+              //     child: _levelWidget(niveau, context),
+              //   ),
+                
+              //   Container(
+              //     alignment: Alignment.topRight,
+              //     child: _lifeWidget(context),
+              //   )
+              // ]
+              // ),
 
-              Text(
-                '${_result ? (niveau == 0 ? '' : ' ') : _gameLabel}',
-                style: TextStyle(
-                    fontSize: 50.0,
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   '${_result ? (niveau == 0 ? '' : ' ') : _gameLabel}',
+              //   style: TextStyle(
+              //       fontSize: 50.0,
+              //       color: Colors.red,
+              //       fontWeight: FontWeight.bold),
+              // ),
               kHeightSpacer,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -320,19 +399,17 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.green,
                       onPressed: () {
-                        _userSequence.add(1);
-                        changeCouleur(OpacityColor.green);
-                        // Simon.play(SimonColor.green);
-                        if (_colorMemorySequence.length ==
-                            _userSequence.length) {
-                          setState(() {
-                            _result = checkSeqeunce();
-                            if (_result)
-                              sequenceSuivant();
-                            else
-                              gameOver();
-                          });
-                        }
+                        if (_colorMemorySequence.length>0 && (! lock_click)){
+                          _userSequence.add(1);
+                          changeCouleur(OpacityColor.green);
+                          // Simon.play(SimonColor.green);
+                          // if (_colorMemorySequence.length ==
+                          //     _userSequence.length) {
+                            setState(() {
+                              verificationSequence();
+                            });
+                          }
+                        // }
                       },
                     ).getDecoration(),
                   ),
@@ -343,19 +420,14 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.red,
                       onPressed: () {
-                        _userSequence.add(2);
-                        changeCouleur(OpacityColor.red);
-                        // Simon.play(SimonColor.red);
-                        if (_colorMemorySequence.length ==
-                            _userSequence.length) {
-                          setState(() {
-                            _result = checkSeqeunce();
-                            if (_result)
-                              sequenceSuivant();
-                            else
-                              gameOver();
-                          });
-                        }
+                        if (_colorMemorySequence.length>0 && (! lock_click)){
+                          _userSequence.add(2);
+                          changeCouleur(OpacityColor.red);
+                            setState(() {
+                              verificationSequence();
+                            });
+                          }
+                        // }
                       },
                     ).getDecoration(),
                   ),
@@ -371,16 +443,12 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.yellow,
                       onPressed: () {
-                        _userSequence.add(3);
-                        changeCouleur(OpacityColor.yellow);
-                        // Simon.play(SimonColor.yellow);
-                        if (_colorMemorySequence.length ==
-                            _userSequence.length) {
-                          _result = checkSeqeunce();
-                          if (_result)
-                            sequenceSuivant();
-                          else
-                            gameOver();
+                        if (_colorMemorySequence.length>0 && (! lock_click)){
+                          _userSequence.add(3);
+                          changeCouleur(OpacityColor.yellow);
+                          setState(() {
+                              verificationSequence();
+                            });
                         }
                       },
                     ).getDecoration(),
@@ -392,18 +460,15 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.blue,
                       onPressed: () {
-                        _userSequence.add(4);
-                        changeCouleur(OpacityColor.blue);
-                        // Simon.play(SimonColor.blue);
-                        if (_colorMemorySequence.length ==
-                            _userSequence.length) {
-                          setState(() {
-                            _result = checkSeqeunce();
-                            if (_result)
-                              sequenceSuivant();
-                            else
-                              gameOver();
-                          });
+                        if (_colorMemorySequence.length>0 && (! lock_click)){
+                          _userSequence.add(4);
+                          changeCouleur(OpacityColor.blue);
+                          // Simon.play(SimonColor.blue);
+                          // if (_colorMemorySequence.length ==_userSequence.length) {
+                            setState(() {
+                              verificationSequence();
+                            });
+                          // }
                         }
                       },
                     ).getDecoration(),
@@ -411,7 +476,15 @@ class _MyHomePageState extends State<MyHomePage>
                 ],
               ),
               kHeightSpacer,
-              _button,
+              new Expanded(
+                child: new Align(
+                alignment: Alignment.bottomCenter,
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _button
+                  ],
+              ))),
               kHeightSpacer,
               // GestureDetector(
               //   child: Text(
@@ -427,10 +500,20 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  Scaffold colorX(BuildContext context, int value) {
-    AppBar(
-      backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-      title: Text(TITLE_TEXT), //(je sais pas faire le constructeur)
-    );
+  bool verificationSequence(){
+      _result = checkSequence();
+      if (_result){
+        if (_colorMemorySequence.length ==_userSequence.length)
+          sequenceSuivant(); 
+      }
+      else
+        gameOver();
+    
   }
+  // Scaffold colorX(BuildContext context, int value) {
+  //   AppBar(
+  //     backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+  //     title: Text(TITLE_TEXT),
+  //   );
+  // }
 }
