@@ -18,8 +18,8 @@ const kWidthSpacer = const SizedBox(
   width: 30,
 );
 
-const kAnimatedOpacityDuration = const Duration(milliseconds: 400);
+const kAnimatedOpacityDuration = const Duration(milliseconds: 300);
 
-const kDelayedOpacityDuration = const Duration(milliseconds: 400);
+const kDelayedOpacityDuration = const Duration(milliseconds: 300);
 
 enum OpacityColor { green, red, yellow, blue, grey, orange, pink, black, lightGreen, purple, teal, brown }

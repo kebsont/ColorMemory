@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage>
   Animation _colorTween;
   int phase_base = 1;
   int phase = 0;
-  int phase_max = 8; //facile
+  int phase_max = 3; //facile
   int niveau = 1;
   int delai_reponse = 0; // défaut pas de délai
   int vie = 2;
@@ -100,23 +100,23 @@ class _MyHomePageState extends State<MyHomePage>
       case 2:
         phase_base = 3;
         vie_base = 2;
-        phase_max = 12;
+        phase_max = 5;
         break;
       case 3:
         phase_base = 5;
         vie_base = 3;
-        phase_max = 15;
+        phase_max = 7;
         break;
       case 4:
         phase_base = 1;
         vie_base = 3;
-        phase_max = 10;
+        phase_max = 3;
         delai_reponse = 2; // 2 secondes pour répondre
         break;
       default: // 1
         phase_base = 1;
         vie_base = 2;
-        phase_max = 8;
+        phase_max = 3;
     }
     vie = vie_base;
     // phase = phase_base;
@@ -419,12 +419,13 @@ void startTimer() {
         if (niveau < 7) {
           niveau++;
           phase = phase_base;
+          _colorMemorySequence.clear();
           for (var i = 0; i < phase; i++) {
             _colorMemorySequence.add(randomChoice(_randTraduction));
           }
           // ajouter un nouveau bouton
           setVisibleBLocks(niveau);
-          _colorMemorySequence.clear();
+          // _colorMemorySequence.clear();
         } else {
           _gameLabel = 'Félicitation, vous avez gagné';
         }
