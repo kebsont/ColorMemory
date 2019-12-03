@@ -67,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage>
   int phase_max = 8; //facile
   int niveau = 1;
   int delai_reponse = 0; // défaut pas de délai
-  DateTime dateLastPut = DateTime.now();
   int vie = 2;
   int vie_base = 2; //facile
   bool lock_click = false;
@@ -91,7 +90,8 @@ class _MyHomePageState extends State<MyHomePage>
   List<int> _userSequence = [];
 
   bool _visible = true;
-  Timer _timer;
+  Timer _timer = null;
+  var now;
   int blocs = 4;
   @override
   void initState() {
@@ -122,13 +122,37 @@ class _MyHomePageState extends State<MyHomePage>
     // phase = phase_base;
     setVisibleBLocks(niveau);
     initStartStopButton(4);
+
   }
 
   @override
   void dispose() {
+    _timer.cancel();
     super.dispose();
     // _animationController.dispose();
   }
+
+int _start = 0;
+
+void startTimer() {
+  _start = 0;
+  const oneSec = const Duration(seconds: 1);
+  _timer = new Timer.periodic(
+    oneSec,
+    (Timer timer) => setState(
+      () {
+        if (_start > 9) {
+          timer.cancel();
+        } else {
+          _start = _start + 1;
+          now = Duration(seconds: _start);
+        }
+      },
+    ),
+  );
+}
+
+
 
   void initStartStopButton(int nb_block) {
     if (vie > 0) {
@@ -139,6 +163,7 @@ class _MyHomePageState extends State<MyHomePage>
               setState(() {
                 _result = true;
                 _gameLabel = 'Partie en cours';
+                startTimer();
                 if (niveau == 0) {
                   niveau += 1;
                   setVisibleBLocks(niveau);
@@ -158,6 +183,7 @@ class _MyHomePageState extends State<MyHomePage>
             onTap: () {
               setState(() {
                 stopSequence();
+                _timer.cancel();
                 _result = false;
                 niveau = 0;
                 phase = 0;
@@ -179,6 +205,7 @@ class _MyHomePageState extends State<MyHomePage>
               phase = phase_base;
               vie = vie_base;
               _gameLabel = '';
+              startTimer();
               setVisibleBLocks(niveau);
               _colorMemorySequence.clear();
               _userSequence.clear();
@@ -377,6 +404,7 @@ class _MyHomePageState extends State<MyHomePage>
           break;
       }
     }
+    
   }
 
   void stopSequence() {}
@@ -405,26 +433,26 @@ class _MyHomePageState extends State<MyHomePage>
         _colorMemorySequence.add(randomChoice(_randTraduction));
       }
     });
-
+    
     Future.delayed(Duration(milliseconds: 1500), () {
       playSequence(_colorMemorySequence);
       Future.delayed(Duration(milliseconds: _colorMemorySequence.length * 500),
           () {
         setState(() {
           _gameLabel = "A vous de jouer !";
-          dateLastPut = DateTime.now();
+          _start = 0;
         });
         lock_click = false;
       });
     });
+    
   }
 
   void startSequence(List<int> sequence) {}
 
   bool checkSequence() {
-    // J'ai modifié la vérification, c'est plus simple maintenant et ça vérifie sur la selection actuelle, (on a plus a attendre la fin)
     if (delai_reponse != 0){
-      if (DateTime.now().difference(dateLastPut).inMilliseconds > (delai_reponse*1000))
+      if (_start > delai_reponse)
         return false;
     }
     for (var i = 0; i < _userSequence.length; i++) {
@@ -448,6 +476,7 @@ class _MyHomePageState extends State<MyHomePage>
         setVisibleBLocks(niveau);
       } else
         _gameLabel = 'Vous avez perdu une vie';
+      _timer.cancel();
       initStartStopButton(4);
     });
     _lifeWidget(vie, context);
@@ -682,12 +711,20 @@ class _MyHomePageState extends State<MyHomePage>
                 ],
               ),
               kHeightSpacer,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  (lock_click || phase ==0 || delai_reponse==0)  ? Text(""): 
+                          Center(child:Text("Temps : "+_start.toString()+" / "+delai_reponse.toString()))
+                ],
+              ),
               new Expanded(
                   child: new Align(
                       alignment: Alignment.bottomCenter,
                       child: new Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[_button],
+                        children: <Widget>[
+                          _button],
                       ))),
               kHeightSpacer,
             ],
@@ -713,7 +750,7 @@ class _MyHomePageState extends State<MyHomePage>
         } else
           gameOver();
       });
-      dateLastPut = DateTime.now();
+      _start = 0;
     }
   }
 
