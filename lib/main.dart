@@ -47,11 +47,10 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title, this.home_phase}) : super(key: key);
-  
+
   final String title;
   // int niveau = 0;
 
-  
   final int home_phase;
   int _counter = 0;
 
@@ -59,17 +58,18 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _colorTween;
-  // print(MyHomePage().home_phase.toString());
-  int phase = 1;//MyHomePage().home_phase;
+  int phase_base = 1;
+  int phase = 0;
   int phase_max = 8; //facile
   int niveau = 1;
-  
-  int vie = 2; //facile
+  int delai_reponse = 0; // défaut pas de délai
+  DateTime dateLastPut = DateTime.now();
+  int vie = 2;
+  int vie_base = 2; //facile
   bool lock_click = false;
   Widget _button;
   double _greenOpacity = 1.0;
@@ -96,33 +96,32 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
-    setVisibleBLocks(niveau);
-    // setVisibleBLocks(niveau);
-    switch (blocs) {
+    switch (widget.home_phase) {
+      case 2:
+        phase_base = 3;
+        vie_base = 2;
+        phase_max = 12;
+        break;
+      case 3:
+        phase_base = 5;
+        vie_base = 3;
+        phase_max = 15;
+        break;
       case 4:
-      initStartStopButton(4);
+        phase_base = 1;
+        vie_base = 3;
+        phase_max = 10;
+        delai_reponse = 2; // 2 secondes pour répondre
         break;
-      case 5:
-      initStartStopButton(5);
-        break;
-      case 6:
-      initStartStopButton(6);
-        break;
-      case 7:
-      initStartStopButton(7);
-        break;
-      case 8:
-      initStartStopButton(8);
-        break;
-      case 9:
-      initStartStopButton(9);
-        break;
-      case 10:
-      initStartStopButton(10);
-        break;
-      default:
-      initStartStopButton(4);
+      default: // 1
+        phase_base = 1;
+        vie_base = 2;
+        phase_max = 8;
     }
+    vie = vie_base;
+    // phase = phase_base;
+    setVisibleBLocks(niveau);
+    initStartStopButton(4);
   }
 
   @override
@@ -130,8 +129,6 @@ class _MyHomePageState extends State<MyHomePage>
     super.dispose();
     // _animationController.dispose();
   }
-
-  
 
   void initStartStopButton(int nb_block) {
     if (vie > 0) {
@@ -142,10 +139,15 @@ class _MyHomePageState extends State<MyHomePage>
               setState(() {
                 _result = true;
                 _gameLabel = 'Partie en cours';
-                if (niveau == 0) {niveau += 1;setVisibleBLocks(niveau);}
-                phase = 1;
+                if (niveau == 0) {
+                  niveau += 1;
+                  setVisibleBLocks(niveau);
+                }
+                phase = phase_base;
                 _userSequence.clear();
-                _colorMemorySequence.add(randomChoice(_randTraduction));
+                for (var i = 0; i < phase; i++) {
+                  _colorMemorySequence.add(randomChoice(_randTraduction));
+                }
                 playSequence(_colorMemorySequence);
                 initStartStopButton(nb_block);
               });
@@ -174,13 +176,15 @@ class _MyHomePageState extends State<MyHomePage>
               stopSequence();
               _result = false;
               niveau = 1;
-              phase = 1;
-              vie = 2;
+              phase = phase_base;
+              vie = vie_base;
               _gameLabel = '';
               setVisibleBLocks(niveau);
               _colorMemorySequence.clear();
               _userSequence.clear();
-              _colorMemorySequence.add(randomChoice(_randTraduction));
+              for (var i = 0; i < phase; i++) {
+                _colorMemorySequence.add(randomChoice(_randTraduction));
+              }
               playSequence(_colorMemorySequence);
               initStartStopButton(niveau);
             });
@@ -341,10 +345,10 @@ class _MyHomePageState extends State<MyHomePage>
           colormemoryPlay(i, OpacityColor.red);
           break;
         case 3:
-        colormemoryPlay(i, OpacityColor.grey);
+          colormemoryPlay(i, OpacityColor.grey);
           break;
         case 4:
-        colormemoryPlay(i, OpacityColor.yellow);
+          colormemoryPlay(i, OpacityColor.yellow);
           break;
         case 5:
           colormemoryPlay(i, OpacityColor.blue);
@@ -356,20 +360,20 @@ class _MyHomePageState extends State<MyHomePage>
           colormemoryPlay(i, OpacityColor.pink);
           break;
         case 8:
-        colormemoryPlay(i, OpacityColor.brown);
+          colormemoryPlay(i, OpacityColor.brown);
           break;
         case 9:
           colormemoryPlay(i, OpacityColor.purple);
           break;
         case 10:
-        colormemoryPlay(i, OpacityColor.black);
-          
+          colormemoryPlay(i, OpacityColor.black);
+
           break;
         case 11:
           colormemoryPlay(i, OpacityColor.teal);
           break;
         case 12:
-        colormemoryPlay(i, OpacityColor.lightGreen);
+          colormemoryPlay(i, OpacityColor.lightGreen);
           break;
       }
     }
@@ -386,7 +390,10 @@ class _MyHomePageState extends State<MyHomePage>
       if (phase >= phase_max) {
         if (niveau < 7) {
           niveau++;
-          phase = 1;
+          phase = phase_base;
+          for (var i = 0; i < phase; i++) {
+            _colorMemorySequence.add(randomChoice(_randTraduction));
+          }
           // ajouter un nouveau bouton
           setVisibleBLocks(niveau);
           _colorMemorySequence.clear();
@@ -395,18 +402,20 @@ class _MyHomePageState extends State<MyHomePage>
         }
       } else {
         phase++;
-      }    
-      _colorMemorySequence.add(randomChoice(_randTraduction));
+        _colorMemorySequence.add(randomChoice(_randTraduction));
+      }
     });
 
     Future.delayed(Duration(milliseconds: 1500), () {
       playSequence(_colorMemorySequence);
-      Future.delayed(Duration(milliseconds: _colorMemorySequence.length*500), () {
-      setState(() {
-        _gameLabel = "A vous de jouer !";
+      Future.delayed(Duration(milliseconds: _colorMemorySequence.length * 500),
+          () {
+        setState(() {
+          _gameLabel = "A vous de jouer !";
+          dateLastPut = DateTime.now();
+        });
+        lock_click = false;
       });
-      lock_click = false;
-    });
     });
   }
 
@@ -414,6 +423,10 @@ class _MyHomePageState extends State<MyHomePage>
 
   bool checkSequence() {
     // J'ai modifié la vérification, c'est plus simple maintenant et ça vérifie sur la selection actuelle, (on a plus a attendre la fin)
+    if (delai_reponse != 0){
+      if (DateTime.now().difference(dateLastPut).inMilliseconds > (delai_reponse*1000))
+        return false;
+    }
     for (var i = 0; i < _userSequence.length; i++) {
       if ((_colorMemorySequence.length < i) ||
           (_colorMemorySequence[i] != _userSequence[i])) return false;
@@ -432,6 +445,7 @@ class _MyHomePageState extends State<MyHomePage>
       if (vie <= 0) {
         niveau = 0;
         _gameLabel = 'Vous avez perdu la partie';
+        setVisibleBLocks(niveau);
       } else
         _gameLabel = 'Vous avez perdu une vie';
       initStartStopButton(4);
@@ -525,7 +539,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.green,
                       onPressed: () {
-                        verificationSequence(1,_greenOpacity);
+                        verificationSequence(1, _greenOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -536,7 +550,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.red,
                       onPressed: () {
-                        verificationSequence(2,_redOpacity);
+                        verificationSequence(2, _redOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -547,7 +561,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.grey,
                       onPressed: () {
-                        verificationSequence(3,_greyOpacity);
+                        verificationSequence(3, _greyOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -563,7 +577,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.yellow,
                       onPressed: () {
-                        verificationSequence(4,_yellowOpacity);
+                        verificationSequence(4, _yellowOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -574,7 +588,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.blue,
                       onPressed: () {
-                        verificationSequence(5,_blueOpacity);
+                        verificationSequence(5, _blueOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -585,7 +599,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.orange,
                       onPressed: () {
-                        verificationSequence(6,_orangeOpacity);
+                        verificationSequence(6, _orangeOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -601,7 +615,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.pink,
                       onPressed: () {
-                        verificationSequence(7,_pinkOpacity);
+                        verificationSequence(7, _pinkOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -612,7 +626,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.brown,
                       onPressed: () {
-                        verificationSequence(8,_brownOpacity);
+                        verificationSequence(8, _brownOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -623,7 +637,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.purple,
                       onPressed: () {
-                        verificationSequence(9,_purpleOpacity);
+                        verificationSequence(9, _purpleOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -639,7 +653,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.black,
                       onPressed: () {
-                        verificationSequence(10,_blackOpacity);
+                        verificationSequence(10, _blackOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -650,7 +664,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.teal,
                       onPressed: () {
-                        verificationSequence(11,_tealOpacity);
+                        verificationSequence(11, _tealOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -661,7 +675,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: BoutonColor(
                       color: Colors.lightGreen[500],
                       onPressed: () {
-                        verificationSequence(12,_lightGreenOpacity);
+                        verificationSequence(12, _lightGreenOpacity);
                       },
                     ).getDecoration(),
                   ),
@@ -685,7 +699,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   bool verificationSequence(int seq_num, double opacity) {
     // vérification générique sur le Onclick d'une couleur
-    if ((opacity == 1.0) && (_colorMemorySequence.length > 0) && (!lock_click)) {
+    if ((opacity == 1.0) &&
+        (_colorMemorySequence.length > 0) &&
+        (!lock_click)) {
       _userSequence.add(seq_num);
       List<int> click_seq = [seq_num];
       playSequence(click_seq);
@@ -697,13 +713,14 @@ class _MyHomePageState extends State<MyHomePage>
         } else
           gameOver();
       });
+      dateLastPut = DateTime.now();
     }
   }
 
-  void setVisibleBLocks(int niveau){
+  void setVisibleBLocks(int niveau) {
     _randTraduction.clear();
     _greenOpacity = 0.0;
-    _redOpacity =0.0;
+    _redOpacity = 0.0;
     _yellowOpacity = 0.0;
     _greyOpacity = 0.0;
     _orangeOpacity = 0.0;
@@ -744,7 +761,7 @@ class _MyHomePageState extends State<MyHomePage>
         _randTraduction.add(7);
         _randTraduction.add(9);
         _randTraduction.add(11);
-        _redOpacity =1.0;
+        _redOpacity = 1.0;
         _yellowOpacity = 1.0;
         _pinkOpacity = 1.0;
         _tealOpacity = 1.0;
@@ -759,7 +776,7 @@ class _MyHomePageState extends State<MyHomePage>
         _randTraduction.add(9);
         _randTraduction.add(10);
         _randTraduction.add(12);
-        _redOpacity =1.0;
+        _redOpacity = 1.0;
         _yellowOpacity = 1.0;
         _pinkOpacity = 1.0;
         _blackOpacity = 1.0;
@@ -795,7 +812,7 @@ class _MyHomePageState extends State<MyHomePage>
         _randTraduction.add(9);
         _randTraduction.add(10);
         _randTraduction.add(12);
-        _redOpacity =1.0;
+        _redOpacity = 1.0;
         _greenOpacity = 1.0;
         _greyOpacity = 1.0;
         _yellowOpacity = 1.0;
@@ -816,7 +833,7 @@ class _MyHomePageState extends State<MyHomePage>
         _randTraduction.add(10);
         _randTraduction.add(11);
         _randTraduction.add(12);
-        _redOpacity =1.0;
+        _redOpacity = 1.0;
         _greenOpacity = 1.0;
         _greyOpacity = 1.0;
         _yellowOpacity = 1.0;
@@ -829,7 +846,6 @@ class _MyHomePageState extends State<MyHomePage>
         break;
     }
   }
-
 
   // Scaffold colorX(BuildContext context, int value) {
   //   AppBar(

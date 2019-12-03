@@ -24,12 +24,12 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
     "Expert": Constants.MODE_EXPERT,
     "Chrono": Constants.MODE_CHRONO
   };
-  // var mode_id = {
-  //   "Débutant": 1,
-  //   "Avancé": 2,
-  //   "Expert": 3,
-  //   "Chrono": 4
-  // };
+  var mode_id = {
+    "Débutant": 1,
+    "Avancé": 2,
+    "Expert": 3,
+    "Chrono": 4
+  };
   StateModel appState;
   Settings testSettings;
   Settings settingss;
@@ -134,8 +134,8 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyHomePage(
-                                        title: Constants.TITLE_TEXT
-                                        // home_phase : mode_id[key]
+                                        title: Constants.TITLE_TEXT,
+                                        home_phase : mode_id[key]
                                       )));
                         },
                       ));

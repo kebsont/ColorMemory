@@ -8,7 +8,13 @@ class StartStopButtonClass {
   Widget startStopButton() {
     return Container(
       child: RaisedButton(
-        splashColor: Colors.black54,
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(18.0),
+          side: BorderSide(color: Colors.white)
+        ),
+        textColor: Colors.white,
+        color: Colors.grey,
+        // splashColor: Colors.black54,
         child: Text(label),
         onPressed: onTap,
         elevation: 2.0,
