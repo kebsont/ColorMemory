@@ -134,7 +134,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MyHomePage(
-                                        title: mode_id[key].toString()
+                                        title: Constants.TITLE_TEXT
                                         // home_phase : mode_id[key]
                                       )));
                         },
