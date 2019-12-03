@@ -27,6 +27,7 @@ dependencies:
   firebase_database: any
   flushbar: any
   random_color: ^1.0.3
+  dart_random_choice: ^0.0.2
 
 
 dev_dependencies:

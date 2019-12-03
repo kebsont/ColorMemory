@@ -7,6 +7,8 @@ class MemoryColor {
   static const orange = 'orange';
   static const pink = 'pink';
   static const black = 'black';
-  static const reef = 'reef';
+  static const lightGreen = 'lightGreen';
   static const purple = 'purple';
+  static const teal= 'teal';
+  static const brown= 'brown';
 }

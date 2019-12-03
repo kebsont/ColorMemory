@@ -22,4 +22,4 @@ const kAnimatedOpacityDuration = const Duration(milliseconds: 400);
 
 const kDelayedOpacityDuration = const Duration(milliseconds: 400);
 
-enum OpacityColor { green, red, yellow, blue }
+enum OpacityColor { green, red, yellow, blue, grey, orange, pink, black, lightGreen, purple, teal, brown }
