@@ -1,6 +1,7 @@
 import 'package:colormemory/models/settings.dart';
 import 'package:colormemory/models/state.dart';
 import 'package:colormemory/services/authentication.dart';
+import 'package:colormemory/utils/SizeConfig.dart';
 import 'package:colormemory/utils/state_wdg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
     "Expert": Constants.MODE_EXPERT,
     "Chrono": Constants.MODE_CHRONO
   };
-  var mode_id = {
-    "Débutant": 1,
-    "Avancé": 2,
-    "Expert": 3,
-    "Chrono": 4
-  };
+  var mode_id = {"Débutant": 1, "Avancé": 2, "Expert": 3, "Chrono": 4};
   StateModel appState;
   Settings testSettings;
   Settings settingss;
@@ -46,104 +42,93 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
     });
   }
 
-  //  Future <Settings> getSeetings() async {
-  //    Settings settings = await Auth.getSettingsLocal();
-  //    setState(() {
-  //     state.settings = settings;
-  //     testSettings = settings;
-  //   });
-  //         return await Auth.getSettingsLocal();
-  //  }
-
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    // Changer l'orientation
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+    SizeConfig().init(context);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: Constants.TITLE_TEXT,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: new Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-            title: Text(Constants.TITLE_TEXT),
-            actions: <Widget>[
-              new IconButton(
-                icon: new Icon(Icons.power_settings_new),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
-          body: Column(
-            children: <Widget>[
-              Padding(padding: EdgeInsets.all(5)),
-              SizedBox(
-                height: 28.0,
-                child: Container(
-                  color: Colors.white,
-                ),
+        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+          title: Text(Constants.TITLE_TEXT),
+          actions: <Widget>[
+            new IconButton(
+              icon: new Icon(Icons.power_settings_new),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+        body: Column(
+            children:<Widget>[
+              
+            Padding(padding: EdgeInsets.all(5)),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical*10,
+              child: Container(
+                color: Colors.white,
               ),
-              Center(
-                child: _welcomeWidget(context),
-                // child: 
-                // Text(
-                //   "Bienvenue $user_pseudo,\nSelectionne un niveau :",
-                  // style: TextStyle(fontSize: 18),
-                // ),
+            ),
+            Center(
+              child: _welcomeWidget(context),
+            ),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical*10,
+              child: Container(
+                color: Colors.white,
               ),
-              SizedBox(
-                height: 28.0,
-                child: Container(
-                  color: Colors.white,
-                ),
-              ),
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: mode.length,
-                itemBuilder: (BuildContext context, int index) {
-                  // return makeCard;
-                  String key = mode.keys.elementAt(index);
-                  return new Container(
-                      decoration:
-                          BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-                      child: ListTile(
-                        title: new Text(
-                          "$key",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0),
-                          textDirection: TextDirection.ltr,
-                        ),
-                        subtitle: new Text("${mode[key]}",
-                            style: TextStyle(color: Colors.white),
-                            textDirection: TextDirection.ltr),
-                        trailing: Icon(Icons.keyboard_arrow_right,
-                            color: Colors.white, size: 30.0),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyHomePage(
-                                        title: Constants.TITLE_TEXT,
-                                        home_phase : mode_id[key]
-                                      )));
-                        },
-                      ));
-                },
-              ),
-              SizedBox(height: 28.0),
-            ],
-          )),
+            ),
+            ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: mode.length,
+              itemBuilder: (BuildContext context, int index) {
+                // return makeCard;
+                String key = mode.keys.elementAt(index);
+                return new Container(
+                  height: SizeConfig.safeBlockVertical*12,
+                  width: SizeConfig.safeBlockHorizontal,
+                    decoration:
+                        BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                    child: ListTile(
+                      title: new Text(
+                        "$key",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0),
+                        textDirection: TextDirection.ltr,
+                      ),
+                      subtitle: new Text("${mode[key]}",
+                          style: TextStyle(color: Colors.white),
+                          textDirection: TextDirection.ltr),
+                      trailing: Icon(Icons.keyboard_arrow_right,
+                          color: Colors.white, size: 30.0),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage(
+                                    title: Constants.TITLE_TEXT,
+                                    home_phase: mode_id[key])));
+                      },
+                    ));
+              },
+            ),
+            SizedBox(height: SizeConfig.safeBlockVertical*10),
+          ],
+        ),
+      ),
     );
   }
 
@@ -157,24 +142,17 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
 
   Widget _welcomeWidget(BuildContext context) {
     return RichText(
-      text: TextSpan(
-        // set the default style for the children TextSpans
-        style: Theme.of(context).textTheme.body1.copyWith(fontSize: 18),
-        children: [
+        text: TextSpan(
+            // set the default style for the children TextSpans
+            style: Theme.of(context).textTheme.body1.copyWith(fontSize: 18),
+            children: [
           TextSpan(
-              text: 'Bienvenue ',
+            text: 'Bienvenue ',
           ),
+          TextSpan(text: '$user_pseudo', style: TextStyle(color: Colors.grey)),
           TextSpan(
-            text: '$user_pseudo',
-            style: TextStyle(
-              color: Colors.grey
-            )
+            text: '\nSelectionne un niveau :',
           ),
-          TextSpan(
-              text: '\nSelectionne un niveau :',
-          ),
-        ]
-      )
-    );
+        ]));
   }
 }
