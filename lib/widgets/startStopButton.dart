@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:colormemory/utils/constants.dart';
 
 class StartStopButtonClass {
   StartStopButtonClass({@required this.label, @required this.onTap});
@@ -13,7 +14,7 @@ class StartStopButtonClass {
           side: BorderSide(color: Colors.white)
         ),
         textColor: Colors.white,
-        color: Colors.grey,
+        color: COLOR_BASE,
         // splashColor: Colors.black54,
         child: Text(label),
         onPressed: onTap,

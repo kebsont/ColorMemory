@@ -32,10 +32,10 @@ class _SignInScreenState extends State<SignInScreen> {
         tag: 'hero',
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
-          radius: 60.0,
+          radius: 80.0,
           child: ClipOval(
             child: Image.network(
-                "https://cdn.pixabay.com/photo/2017/03/12/13/41/beaded-2137080_960_720.jpg"),
+                "https://w.wallhaven.cc/full/0j/wallhaven-0jqlew.jpg"),
           ),
         ));
 

@@ -70,7 +70,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
       ),
       home: new Scaffold(
           appBar: AppBar(
-            backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+            backgroundColor: Constants.COLOR_BASE,//Color.fromRGBO(64, 75, 96, .9),
             title: Text(Constants.TITLE_TEXT),
             actions: <Widget>[
               new IconButton(
@@ -114,7 +114,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
                   String key = mode.keys.elementAt(index);
                   return new Container(
                       decoration:
-                          BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                          BoxDecoration(color: Constants.COLOR_BASE),
                       child: ListTile(
                         title: new Text(
                           "$key",
@@ -167,7 +167,7 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
           TextSpan(
             text: '$user_pseudo',
             style: TextStyle(
-              color: Colors.grey
+              color: Constants.COLOR_BASE
             )
           ),
           TextSpan(
