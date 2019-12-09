@@ -116,12 +116,12 @@ class _MyHomePageState extends State<MyHomePage>
       default: // 1
         phase_base = 1;
         vie_base = 2;
-        phase_max = 3;
+        phase_max = 1;
     }
     vie = vie_base;
     // phase = phase_base;
     setVisibleBLocks(niveau);
-    initStartStopButton(4);
+    initStartStopButton();
 
   }
 
@@ -141,8 +141,10 @@ void startTimer() {
     oneSec,
     (Timer timer) => setState(
       () {
-        if (_start > 9) {
-          timer.cancel();
+        if (_start >= delai_reponse && delai_reponse>0 && !lock_click) {
+
+          gameOver();
+          //perte de vie
         } else {
           _start = _start + 1;
           now = Duration(seconds: _start);
@@ -154,27 +156,35 @@ void startTimer() {
 
 
 
-  void initStartStopButton(int nb_block) {
-    if (vie > 0) {
-      if (phase == 0) {
+  void initStartStopButton() {
+    if ((vie > 0) && (_gameLabel != INFO_WIN_GAME)) {
+      if ((phase == 0) || (_gameLabel == INFO_LOSE_LIFE)) {
         _button = StartStopButtonClass(
             label: 'Commencer',
             onTap: () {
               setState(() {
                 _result = true;
-                _gameLabel = 'Partie en cours';
+                _gameLabel = INFO_GAME_PROGRESS;
                 startTimer();
                 if (niveau == 0) {
                   niveau += 1;
                   setVisibleBLocks(niveau);
                 }
-                phase = phase_base;
-                _userSequence.clear();
-                for (var i = 0; i < phase; i++) {
-                  _colorMemorySequence.add(randomChoice(_randTraduction));
+                if (phase == 0){
+                  phase = phase_base;
+                  for (var i = 0; i < phase; i++) {
+                    _colorMemorySequence.add(randomChoice(_randTraduction));
+                  }
                 }
-                playSequence(_colorMemorySequence);
-                initStartStopButton(nb_block);
+                _userSequence.clear();
+                Future.delayed(Duration(milliseconds: 500), () {
+                  playSequence(_colorMemorySequence);
+                  Future.delayed(Duration(milliseconds: _colorMemorySequence.length* i_kAnimatedOpacityDuration), () {
+                    _gameLabel =INFO_YOUR_TURN;
+                    _start = 0;
+                  });
+                });
+                initStartStopButton();
               });
             }).startStopButton();
       } else if (phase > 0) {
@@ -190,20 +200,23 @@ void startTimer() {
                 _gameLabel = '';
                 _colorMemorySequence.clear();
                 _userSequence.clear();
-                initStartStopButton(nb_block);
+                initStartStopButton();
               });
             }).startStopButton();
       }
-    } else {
+    } 
+    else {
       _button = StartStopButtonClass(
           label: 'Recommencer',
           onTap: () {
             setState(() {
+              _gameLabel = '';
               stopSequence();
               _result = false;
               niveau = 1;
               phase = phase_base;
               vie = vie_base;
+              // _lifeWidget(vie, context);
               _gameLabel = '';
               startTimer();
               setVisibleBLocks(niveau);
@@ -212,8 +225,11 @@ void startTimer() {
               for (var i = 0; i < phase; i++) {
                 _colorMemorySequence.add(randomChoice(_randTraduction));
               }
-              playSequence(_colorMemorySequence);
-              initStartStopButton(niveau);
+              Future.delayed(Duration(milliseconds: 500), () {
+                playSequence(_colorMemorySequence);
+              });
+              
+              initStartStopButton();
             });
           }).startStopButton();
     }
@@ -410,7 +426,7 @@ void startTimer() {
   void stopSequence() {}
   void sequenceSuivant() {
     setState(() {
-      _gameLabel = "Bien joué !";
+      _gameLabel = INFO_WELL_PLAYED;
       lock_click = true;
       _userSequence.clear();
       _result = true;
@@ -419,15 +435,20 @@ void startTimer() {
         if (niveau < 7) {
           niveau++;
           phase = phase_base;
+          setVisibleBLocks(niveau); // Changer la visibilité avant de créer la nouvelle séquence
+
           _colorMemorySequence.clear();
           for (var i = 0; i < phase; i++) {
             _colorMemorySequence.add(randomChoice(_randTraduction));
           }
           // ajouter un nouveau bouton
-          setVisibleBLocks(niveau);
+          
           // _colorMemorySequence.clear();
         } else {
-          _gameLabel = 'Félicitation, vous avez gagné';
+          _gameLabel = INFO_WIN_GAME;
+          _colorMemorySequence.clear();
+          setVisibleBLocks(0);
+          initStartStopButton();
         }
       } else {
         phase++;
@@ -437,14 +458,16 @@ void startTimer() {
     
     Future.delayed(Duration(milliseconds: 1500), () {
       playSequence(_colorMemorySequence);
-      Future.delayed(Duration(milliseconds: _colorMemorySequence.length * 500),
-          () {
-        setState(() {
-          _gameLabel = "A vous de jouer !";
-          _start = 0;
+          Future.delayed(Duration(milliseconds: _colorMemorySequence.length * 500),() {
+          setState(() {
+            if (_gameLabel!=INFO_WIN_GAME){
+              _gameLabel =INFO_YOUR_TURN;
+              _start = 0;
+            }
+          });
+          lock_click = false;
         });
-        lock_click = false;
-      });
+      
     });
     
   }
@@ -465,20 +488,23 @@ void startTimer() {
 
   void gameOver() {
     setState(() {
+      _start = 0;
       _result = false;
       vie--;
-      phase = 0;
+      
 
-      _colorMemorySequence.clear();
+      
       _userSequence.clear();
       if (vie <= 0) {
+        phase = 0;
+        _colorMemorySequence.clear(); // On ne re-initialise plus la suite si perte de vie
         niveau = 0;
-        _gameLabel = 'Vous avez perdu la partie';
+        _gameLabel = INFO_LOSE_GAME;
         setVisibleBLocks(niveau);
       } else
-        _gameLabel = 'Vous avez perdu une vie';
+        _gameLabel = INFO_LOSE_LIFE;
       _timer.cancel();
-      initStartStopButton(4);
+      initStartStopButton();
     });
     _lifeWidget(vie, context);
   }
@@ -523,7 +549,7 @@ void startTimer() {
             onPressed: () => Navigator.pop(context, false),
           ),
           centerTitle: true,
-          backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+          backgroundColor: COLOR_BASE, //Color.fromRGBO(64, 75, 96, .9),
           title: Text(TITLE_TEXT),
         ),
         body: Container(
@@ -715,8 +741,9 @@ void startTimer() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  (lock_click || phase ==0 || delai_reponse==0)  ? Text(""): 
-                          Center(child:Text("Temps : "+_start.toString()+" / "+delai_reponse.toString()))
+                  // (lock_click || phase ==0 || delai_reponse==0 || _gameLabel==INFO_LOSE_LIFE || _gameLabel==INFO_LOSE_GAME)  ? Text(""):
+                  (lock_click || delai_reponse==0 || _gameLabel!=INFO_YOUR_TURN)  ? Text(""):
+                      Center(child:Text("Temps : "+_start.toString()+" / "+delai_reponse.toString()))
                 ],
               ),
               new Expanded(
@@ -738,7 +765,7 @@ void startTimer() {
   bool verificationSequence(int seq_num, double opacity) {
     // vérification générique sur le Onclick d'une couleur
     if ((opacity == 1.0) &&
-        (_colorMemorySequence.length > 0) &&
+        (_colorMemorySequence.length > 0) && (_gameLabel==INFO_YOUR_TURN) &&
         (!lock_click)) {
       _userSequence.add(seq_num);
       List<int> click_seq = [seq_num];
