@@ -54,81 +54,86 @@ class _HomeWithMenuState extends State<HomeWithMenu> {
         primarySwatch: Colors.blue,
       ),
       home: new Scaffold(
-        resizeToAvoidBottomPadding: false,
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-          title: Text(Constants.TITLE_TEXT),
-          actions: <Widget>[
-            new IconButton(
-              icon: new Icon(Icons.power_settings_new),
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pop(context);
-              },
-            )
-          ],
-        ),
-        body: Column(
-            children:<Widget>[
-              
-            Padding(padding: EdgeInsets.all(5)),
-            SizedBox(
-              height: SizeConfig.safeBlockVertical*10,
-              child: Container(
-                color: Colors.white,
-              ),
-            ),
-            Center(
-              child: _welcomeWidget(context),
-            ),
-            SizedBox(
-              height: SizeConfig.safeBlockVertical*10,
-              child: Container(
-                color: Colors.white,
-              ),
-            ),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: mode.length,
-              itemBuilder: (BuildContext context, int index) {
-                // return makeCard;
-                String key = mode.keys.elementAt(index);
-                return new Container(
-                  height: SizeConfig.safeBlockVertical*12,
-                  width: SizeConfig.safeBlockHorizontal,
-                    decoration:
-                        BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-                    child: ListTile(
-                      title: new Text(
-                        "$key",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0),
-                        textDirection: TextDirection.ltr,
+          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+            title: Text(Constants.TITLE_TEXT),
+            actions: <Widget>[
+              new IconButton(
+                icon: new Icon(Icons.power_settings_new),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.all(5)),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical * 10,
+                      child: Container(
+                        color: Colors.white,
                       ),
-                      subtitle: new Text("${mode[key]}",
-                          style: TextStyle(color: Colors.white),
-                          textDirection: TextDirection.ltr),
-                      trailing: Icon(Icons.keyboard_arrow_right,
-                          color: Colors.white, size: 30.0),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage(
-                                    title: Constants.TITLE_TEXT,
-                                    home_phase: mode_id[key])));
+                    ),
+                    Center(
+                      child: _welcomeWidget(context),
+                    ),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical * 10,
+                      child: Container(
+                        color: Colors.white,
+                      ),
+                    ),
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: mode.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        // return makeCard;
+                        String key = mode.keys.elementAt(index);
+                        return new Container(
+                            height: SizeConfig.safeBlockVertical * 12,
+                            width: SizeConfig.safeBlockHorizontal,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(64, 75, 96, .9)),
+                            child: ListTile(
+                              title: new Text(
+                                "$key",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                                textDirection: TextDirection.ltr,
+                              ),
+                              subtitle: new Text("${mode[key]}",
+                                  style: TextStyle(color: Colors.white),
+                                  textDirection: TextDirection.ltr),
+                              trailing: Icon(Icons.keyboard_arrow_right,
+                                  color: Colors.white, size: 30.0),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyHomePage(
+                                            title: Constants.TITLE_TEXT,
+                                            home_phase: mode_id[key])));
+                              },
+                            ));
                       },
-                    ));
-              },
-            ),
-            SizedBox(height: SizeConfig.safeBlockVertical*10),
-          ],
-        ),
-      ),
+                    ),
+                    SizedBox(height: SizeConfig.safeBlockVertical * 10),
+                  ],
+                ),
+              )
+            ],
+          )),
     );
   }
 
